@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{C01C5DA6-3C17-440E-B67F-BF20CADDB782}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Promise.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="sample\sample.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Promise">
+        <MSBuild Projects="Promise.dproj"/>
+    </Target>
+    <Target Name="Promise:Clean">
+        <MSBuild Projects="Promise.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Promise:Make">
+        <MSBuild Projects="Promise.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="sample">
+        <MSBuild Projects="sample\sample.dproj"/>
+    </Target>
+    <Target Name="sample:Clean">
+        <MSBuild Projects="sample\sample.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="sample:Make">
+        <MSBuild Projects="sample\sample.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Promise;sample"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Promise:Clean;sample:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Promise:Make;sample:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

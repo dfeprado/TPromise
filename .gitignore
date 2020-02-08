@@ -1,0 +1,7 @@
+__history
+*.stat
+*.skincfg
+*.res
+*.identcache
+win32
+*.swp

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/10/03 09:35:00.000.178,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/10/21 08:55:51.000.252,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/12/02 08:21:55.000.976,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/12/02 11:03:42.000.690,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/12/23 11:37:59.000.751,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2020/01/14 16:00:38.000.229,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2020/01/14 16:00:59.000.041,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2020/02/08 18:08:56.256,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2020/02/08 18:09:11.547,X:\GRV\Pacotes\Promise\sample\uMainForm.dfm=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2020/02/08 18:09:11.547,X:\GRV\Pacotes\Promise\sample\uMainForm.pas=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2020/02/08 18:09:13.839,X:\GRV\Pacotes\Promise\sample\sample.dproj=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5"/>
+	</ActiveMobileDevice>
+</BorlandProject>

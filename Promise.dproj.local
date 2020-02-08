@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/10/07 16:16:20.000.372,=rtl.dcp</Transaction>
+    <Transaction>2020/02/08 12:20:34.000.909,=rtl.dcp</Transaction>
+    <Transaction>2020/02/08 12:22:12.000.940,C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Package1.dproj=X:\GRV\Pacotes\Promise\Promise.dproj</Transaction>
+    <Transaction>2020/02/08 12:44:41.000.686,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 12:44:46.000.933,X:\GRV\Pacotes\Promise\Unit1.pas=X:\GRV\Pacotes\Promise\uPromise.pas</Transaction>
+    <Transaction>2020/02/08 12:45:04.000.244,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 12:45:08.000.061,X:\GRV\Pacotes\Promise\Unit1.pas=X:\GRV\Pacotes\Promise\uIPromise.pas</Transaction>
+    <Transaction>2020/02/08 12:46:54.000.256,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 12:47:01.000.186,X:\GRV\Pacotes\Promise\Unit1.pas=X:\GRV\Pacotes\Promise\uPromise.Types.pas</Transaction>
+    <Transaction>2020/02/08 13:28:16.000.195,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 13:28:28.000.883,X:\GRV\Pacotes\Promise\Unit1.pas=X:\GRV\Pacotes\Promise\uPromise.State.Resolved.pas</Transaction>
+    <Transaction>2020/02/08 13:28:35.000.104,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 13:28:42.000.729,X:\GRV\Pacotes\Promise\Unit1.pas=X:\GRV\Pacotes\Promise\uPromite.State.pas</Transaction>
+    <Transaction>2020/02/08 13:28:56.000.199,X:\GRV\Pacotes\Promise\uPromite.State.pas=X:\GRV\Pacotes\Promise\uPromise.State.pas</Transaction>
+    <Transaction>2020/02/08 17:31:00.000.341,X:\GRV\Pacotes\Promise\uPromise.State.Resolved.pas=X:\GRV\Pacotes\Promise\uPromise.State.Unresolved.pas</Transaction>
+    <Transaction>2020/02/08 17:31:46.000.166,X:\GRV\Pacotes\Promise\uPromise.State.Unresolved.pas=</Transaction>
+    <Transaction>2020/02/08 17:31:50.000.684,X:\GRV\Pacotes\Promise\uPromise.State.pas=</Transaction>
+    <Transaction>2020/02/08 17:32:07.000.177,=X:\GRV\Pacotes\Promise\states\uPromise.State.Unresolved.pas</Transaction>
+    <Transaction>2020/02/08 17:32:07.000.163,=X:\GRV\Pacotes\Promise\states\uPromise.State.pas</Transaction>
+    <Transaction>2020/02/08 17:39:31.000.876,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 17:39:39.000.082,X:\GRV\Pacotes\Promise\Unit1.pas=X:\GRV\Pacotes\Promise\uIPromiseStateChanger.pas</Transaction>
+    <Transaction>2020/02/08 17:50:41.000.742,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 17:50:54.000.923,X:\GRV\Pacotes\Promise\Unit1.pas=X:\GRV\Pacotes\Promise\states\uPromise.State.Resolved.pas</Transaction>
+    <Transaction>2020/02/08 17:58:30.000.156,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 17:58:41.000.469,X:\GRV\Pacotes\Promise\Unit1.pas=X:\GRV\Pacotes\Promise\states\uPromise.State.Base.pas</Transaction>
+    <Transaction>2020/02/08 18:36:15.420,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 18:36:25.132,X:\GRV\Pacotes\Promise\states\uPromise.State.Rejected.pas=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 19:27:05.584,X:\GRV\Pacotes\Promise\uIPromiseStateChanger.pas=</Transaction>
+  </Transactions>
+</BorlandProject>
