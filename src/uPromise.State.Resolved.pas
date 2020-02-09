@@ -18,13 +18,19 @@ type
 
       function getErrorStr(): string; override;
       function getStateStr(): string; override;
-      procedure so(pProc: TAccept<T>); override;
+      function getValue(): T; override;
+      procedure next(pProc: TAccept<T>); override;
       procedure caught(pProc: TReject); override;
+      procedure cancel(); override;
   end;
 
 implementation
 
 { TResolvedState<T> }
+
+procedure TResolvedState<T>.cancel;
+begin
+end;
 
 procedure TResolvedState<T>.caught(pProc: TReject);
 begin
@@ -45,11 +51,16 @@ begin
     result := 'resolved';
 end;
 
+function TResolvedState<T>.getValue: T;
+begin
+    result := fValue;
+end;
+
 procedure TResolvedState<T>.setNextState;
 begin
 end;
 
-procedure TResolvedState<T>.so(pProc: TAccept<T>);
+procedure TResolvedState<T>.next(pProc: TAccept<T>);
 begin
     self.fAcceptProc := pProc;
 

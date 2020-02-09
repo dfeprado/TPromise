@@ -13,14 +13,17 @@ type
       fErrorValue: String;
 
       procedure syncAccept(pValue: T);
-      procedure syncReject;
+      procedure syncReject();
+      procedure syncCanceled();
       procedure setNextState(); virtual; abstract;
 
       //--from IPromiseState<T>
       function getErrorStr(): string; virtual; abstract;
       function getStateStr(): string; virtual; abstract;
-      procedure so(pProc: TAccept<T>); virtual; abstract;
+      function getValue(): T; virtual; abstract;
+      procedure next(pProc: TAccept<T>); virtual; abstract;
       procedure caught(pProc: TReject); virtual; abstract;
+      procedure cancel(); virtual; abstract;
   end;
 
 implementation
@@ -40,6 +43,17 @@ begin
           begin
               fAcceptProc(pValue);
           end;
+          self.setNextState();
+      end
+    );
+end;
+
+procedure TBaseState<T>.syncCanceled;
+begin
+    TThread.Queue(
+      nil,
+      procedure
+      begin
           self.setNextState();
       end
     );

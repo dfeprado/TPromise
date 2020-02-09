@@ -10,6 +10,7 @@ type
         fFuture: IFuture<T>;
         fSoTask: ITask;
         fPromise: IPromise<T>;
+        fCanceled: boolean;
 
       protected
         procedure setNextState(); override;
@@ -19,8 +20,10 @@ type
 
         function getErrorStr(): string; override;
         function getStateStr(): string; override;
-        procedure so(pProc: TAccept<T>); override;
+        function getValue(): T; override;
+        procedure next(pProc: TAccept<T>); override;
         procedure caught(pProc: TReject); override;
+        procedure cancel(); override;
 
     end;
 
@@ -28,9 +31,20 @@ implementation
 
 uses
   uPromise.State.Resolved, uPromise.State.Rejected, System.SysUtils,
-  uPromise.State;
+  uPromise.State, uPromise.State.Canceled;
 
 { TUnresolvedState<T> }
+
+procedure TUnresolvedState<T>.cancel;
+begin
+//    if (Assigned(fSoTask)) then
+//    begin
+//        fSoTask.Cancel();
+//    end;
+    fCanceled := true;
+
+    fFuture.Cancel();
+end;
 
 procedure TUnresolvedState<T>.caught(pProc: TReject);
 begin
@@ -53,11 +67,22 @@ begin
     result := 'unresolved';
 end;
 
+function TUnresolvedState<T>.getValue: T;
+begin
+end;
+
 procedure TUnresolvedState<T>.setNextState;
 begin
     if (fFuture.Status = TTaskStatus.Exception) then
     begin
-        fPromise.changeState(TRejectedState<T>.Create(fErrorValue, fRejectProc));
+        if (fCanceled) then
+        begin
+            fPromise.changeState(TCanceledState<T>.Create());
+        end
+        else
+        begin
+            fPromise.changeState(TRejectedState<T>.Create(fErrorValue, fRejectProc));
+        end;
     end
     else
     begin
@@ -65,7 +90,7 @@ begin
     end;
 end;
 
-procedure TUnresolvedState<T>.so(pProc: TAccept<T>);
+procedure TUnresolvedState<T>.next(pProc: TAccept<T>);
 begin
     if (Assigned(fSoTask)) then
     begin
@@ -81,11 +106,21 @@ begin
           var
             xResult: T;
             xValue: string;
+            xFuture: IFuture<T>;
           begin
+              xFuture := fFuture;
+
               try
-                TTask.WaitForAll([fFuture]);
-                self.syncAccept(fFuture.Value);
+                xFuture.Wait(INFINITE);
+
+                self.syncAccept(xFuture.Value);
+
               except
+                on e: EOperationCanceled do
+                begin
+                    self.syncCanceled();
+                end;
+
                 on e: EAggregateException do
                 begin
                     fErrorValue := e.InnerExceptions[0].Message;

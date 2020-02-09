@@ -16,9 +16,14 @@ type
       //-- from IPromise<T>
       function getErrorStr(): string;
       function getState(): string;
-      function so(pProc: TAccept<T>): IPromise<T>;
+      function getValue(): T;
+      function next(pProc: TAccept<T>): IPromise<T>;
+      function isResolved(): boolean;
+      function isRejected(): boolean;
+      function isUnresolved(): boolean;
       procedure caught(pProc: TReject);
       procedure changeState(pState: IPromiseState<T>);
+      procedure cancel();
 
   end;
 
@@ -28,6 +33,11 @@ uses
   System.Classes, uPromise.State.Unresolved;
 
 { TPromise<T> }
+
+procedure TPromise<T>.cancel;
+begin
+    fSelfState.cancel();
+end;
 
 procedure TPromise<T>.caught(pProc: TReject);
 begin
@@ -60,9 +70,29 @@ begin
     result := fSelfState.getStateStr();
 end;
 
-function TPromise<T>.so(pProc: TAccept<T>): IPromise<T>;
+function TPromise<T>.getValue: T;
 begin
-    fSelfState.so(pProc);
+    result := fSelfState.getValue();
+end;
+
+function TPromise<T>.isRejected: boolean;
+begin
+    result := fSelfState.getStateStr() = 'rejected';
+end;
+
+function TPromise<T>.isResolved: boolean;
+begin
+    result := fSelfState.getStateStr() = 'resolved';
+end;
+
+function TPromise<T>.isUnresolved: boolean;
+begin
+    result := fSelfState.getStateStr() = 'unresolved';
+end;
+
+function TPromise<T>.next(pProc: TAccept<T>): IPromise<T>;
+begin
+    fSelfState.next(pProc);
     result := self;
 end;
 

@@ -26,8 +26,29 @@
     <Transaction>2020/02/08 17:50:54.000.923,X:\GRV\Pacotes\Promise\Unit1.pas=X:\GRV\Pacotes\Promise\states\uPromise.State.Resolved.pas</Transaction>
     <Transaction>2020/02/08 17:58:30.000.156,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
     <Transaction>2020/02/08 17:58:41.000.469,X:\GRV\Pacotes\Promise\Unit1.pas=X:\GRV\Pacotes\Promise\states\uPromise.State.Base.pas</Transaction>
-    <Transaction>2020/02/08 18:36:15.420,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
-    <Transaction>2020/02/08 18:36:25.132,X:\GRV\Pacotes\Promise\states\uPromise.State.Rejected.pas=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
-    <Transaction>2020/02/08 19:27:05.584,X:\GRV\Pacotes\Promise\uIPromiseStateChanger.pas=</Transaction>
+    <Transaction>2020/02/08 18:36:15.000.420,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 18:36:25.000.132,X:\GRV\Pacotes\Promise\states\uPromise.State.Rejected.pas=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/08 19:27:05.000.584,X:\GRV\Pacotes\Promise\uIPromiseStateChanger.pas=</Transaction>
+    <Transaction>2020/02/09 06:47:36.977,=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/09 06:47:46.149,X:\GRV\Pacotes\Promise\states\uPromise.State.Canceled.pas=X:\GRV\Pacotes\Promise\Unit1.pas</Transaction>
+    <Transaction>2020/02/09 07:35:52.833,X:\GRV\Pacotes\Promise\states\uPromise.State.Base.pas=</Transaction>
+    <Transaction>2020/02/09 07:35:52.893,X:\GRV\Pacotes\Promise\states\uPromise.State.Canceled.pas=</Transaction>
+    <Transaction>2020/02/09 07:35:53.013,X:\GRV\Pacotes\Promise\states\uPromise.State.pas=</Transaction>
+    <Transaction>2020/02/09 07:35:53.096,X:\GRV\Pacotes\Promise\states\uPromise.State.Rejected.pas=</Transaction>
+    <Transaction>2020/02/09 07:35:53.124,X:\GRV\Pacotes\Promise\states\uPromise.State.Resolved.pas=</Transaction>
+    <Transaction>2020/02/09 07:35:53.206,X:\GRV\Pacotes\Promise\states\uPromise.State.Unresolved.pas=</Transaction>
+    <Transaction>2020/02/09 07:35:56.243,X:\GRV\Pacotes\Promise\uIPromise.pas=</Transaction>
+    <Transaction>2020/02/09 07:35:56.345,X:\GRV\Pacotes\Promise\uPromise.pas=</Transaction>
+    <Transaction>2020/02/09 07:35:56.387,X:\GRV\Pacotes\Promise\uPromise.Types.pas=</Transaction>
+    <Transaction>2020/02/09 07:36:59.379,=X:\GRV\Pacotes\Promise\src\uIPromise.pas</Transaction>
+    <Transaction>2020/02/09 07:36:59.422,=X:\GRV\Pacotes\Promise\src\uIPromiseStateChanger.pas</Transaction>
+    <Transaction>2020/02/09 07:37:00.014,=X:\GRV\Pacotes\Promise\src\uPromise.pas</Transaction>
+    <Transaction>2020/02/09 07:37:00.051,=X:\GRV\Pacotes\Promise\src\uPromise.State.Base.pas</Transaction>
+    <Transaction>2020/02/09 07:37:00.087,=X:\GRV\Pacotes\Promise\src\uPromise.State.Canceled.pas</Transaction>
+    <Transaction>2020/02/09 07:37:00.126,=X:\GRV\Pacotes\Promise\src\uPromise.State.pas</Transaction>
+    <Transaction>2020/02/09 07:37:00.164,=X:\GRV\Pacotes\Promise\src\uPromise.State.Rejected.pas</Transaction>
+    <Transaction>2020/02/09 07:37:00.201,=X:\GRV\Pacotes\Promise\src\uPromise.State.Resolved.pas</Transaction>
+    <Transaction>2020/02/09 07:37:00.239,=X:\GRV\Pacotes\Promise\src\uPromise.State.Unresolved.pas</Transaction>
+    <Transaction>2020/02/09 07:37:00.278,=X:\GRV\Pacotes\Promise\src\uPromise.Types.pas</Transaction>
   </Transactions>
 </BorlandProject>

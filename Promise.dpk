@@ -25,19 +25,23 @@ package Promise;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$IMPLICITBUILD ON}
+{$DESCRIPTION 'Implementação do conceito PROMISE do ES para o DELPHI'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
 
 requires
   rtl;
 
 contains
-  uPromise in 'uPromise.pas',
-  uIPromise in 'uIPromise.pas',
-  uPromise.Types in 'uPromise.Types.pas',
-  uPromise.State in 'states\uPromise.State.pas',
-  uPromise.State.Unresolved in 'states\uPromise.State.Unresolved.pas',
-  uPromise.State.Resolved in 'states\uPromise.State.Resolved.pas',
-  uPromise.State.Base in 'states\uPromise.State.Base.pas',
-  uPromise.State.Rejected in 'states\uPromise.State.Rejected.pas';
+  uIPromise in 'src\uIPromise.pas',
+  uIPromiseStateChanger in 'src\uIPromiseStateChanger.pas',
+  uPromise in 'src\uPromise.pas',
+  uPromise.State.Base in 'src\uPromise.State.Base.pas',
+  uPromise.State.Canceled in 'src\uPromise.State.Canceled.pas',
+  uPromise.State in 'src\uPromise.State.pas',
+  uPromise.State.Rejected in 'src\uPromise.State.Rejected.pas',
+  uPromise.State.Resolved in 'src\uPromise.State.Resolved.pas',
+  uPromise.State.Unresolved in 'src\uPromise.State.Unresolved.pas',
+  uPromise.Types in 'src\uPromise.Types.pas';
 
 end.

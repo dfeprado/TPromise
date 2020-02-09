@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uIPromise;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, uIPromise;
 
 type
   TForm2 = class(TForm)
@@ -15,12 +15,19 @@ type
     btnPromiseState: TButton;
     lblPromiseState: TLabel;
     btnPromiseRejection: TButton;
+    btnCancelPromise: TButton;
+    Label1: TLabel;
+    Timer1: TTimer;
     procedure btnUpdateLabelClick(Sender: TObject);
     procedure btnPromiseStateClick(Sender: TObject);
     procedure btnUpdateLabel2Click(Sender: TObject);
     procedure btnPromiseRejectionClick(Sender: TObject);
+    procedure btnCancelPromiseClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Timer1Timer(Sender: TObject);
   private
     fPromise: IPromise<string>;
+    fCounter: shortint;
   public
     { Public declarations }
   end;
@@ -39,12 +46,7 @@ procedure TForm2.btnUpdateLabel2Click(Sender: TObject);
 begin
     if (Assigned(fPromise)) then
     begin
-        fPromise.so(
-          procedure (const R: string)
-          begin
-              lblLabel2.Caption := R;
-          end
-        );
+        lblLabel2.Caption := fPromise.getValue();
     end
     else
     begin
@@ -55,25 +57,63 @@ end;
 procedure TForm2.btnUpdateLabelClick(Sender: TObject);
 var
   xFuture: IFuture<string>;
+  xDate: TDateTime;
 begin
     xFuture := TTask.Future<string>(
       function: string
       var
-        x: shortint;
+        xSecCount: shortint;
       begin
-          x := 10;
-          sleep(3000);
+          xSecCount := 0;
+          while (xSecCount < 10) do
+          begin
+              TTask.CurrentTask.CheckCanceled();
+
+              sleep(1000);
+
+              inc(xSecCount);
+          end;
           result := 'Hello world!';
       end
     );
 
     fPromise := TPromise<string>.Create(xFuture);
-    fPromise.so(
+    fPromise.next(
       procedure (const R: string)
       begin
           lblLabel.Caption := R;
       end
     );
+
+    fCounter := 10;
+    Timer1.Enabled := True;
+end;
+
+procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+    if (Assigned(fPromise)) then
+    begin
+        fPromise.cancel();
+    end;
+end;
+
+procedure TForm2.Timer1Timer(Sender: TObject);
+begin
+    dec(fCounter);
+    Label1.Caption := fCounter.ToString();
+
+    if (fCounter = 0) then
+    begin
+        Timer1.Enabled := false;
+    end;
+end;
+
+procedure TForm2.btnCancelPromiseClick(Sender: TObject);
+begin
+    if (Assigned(fPromise)) then
+    begin
+        fPromise.cancel();
+    end;
 end;
 
 procedure TForm2.btnPromiseRejectionClick(Sender: TObject);
@@ -88,7 +128,7 @@ begin
     );
 
     fPromise := TPromise<string>.Create(xFuture);
-    fPromise.so(
+    fPromise.next(
       procedure (const R: string)
       begin
           lblLabel.Caption := R;

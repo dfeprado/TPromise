@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions/>
-  <Default.Personality>
-    <Projects ActiveProject="X:\GRV\Pacotes\Promise\sample\sample.dproj"/>
-  </Default.Personality>
+	<Transactions/>
+	<Default.Personality>
+		<Projects ActiveProject="X:\GRV\Pacotes\Promise\Promise.dproj"/>
+	</Default.Personality>
 </BorlandProject>

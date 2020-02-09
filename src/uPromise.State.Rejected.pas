@@ -15,15 +15,21 @@ type
 
       function getErrorStr(): string; override;
       function getStateStr(): string; override;
+      function getValue(): T; override;
       procedure setNextState(); override;
-      procedure so(pProc: TAccept<T>); override;
+      procedure next(pProc: TAccept<T>); override;
       procedure caught(pProc: TReject); override;
+      procedure cancel(); override;
 
   end;
 
 implementation
 
 { TRejectedState<T> }
+
+procedure TRejectedState<T>.cancel;
+begin
+end;
 
 procedure TRejectedState<T>.caught(pProc: TReject);
 begin
@@ -47,11 +53,15 @@ begin
     result := 'rejected';
 end;
 
+function TRejectedState<T>.getValue: T;
+begin
+end;
+
 procedure TRejectedState<T>.setNextState;
 begin
 end;
 
-procedure TRejectedState<T>.so(pProc: TAccept<T>);
+procedure TRejectedState<T>.next(pProc: TAccept<T>);
 begin
 end;
 
