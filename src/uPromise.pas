@@ -9,7 +9,6 @@ type
     private
       fSelfState: IPromiseState<T>;
 
-    protected
       procedure changeState(pState: IPromiseState<T>);
 
     public
