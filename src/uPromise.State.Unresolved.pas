@@ -2,7 +2,8 @@ unit uPromise.State.Unresolved;
 
 interface
 
-uses uPromise.Types, System.Threading, uIPromise, uPromise.State.Base;
+uses uPromise.Types, System.Threading, uIPromise, uPromise.State.Base,
+  uPromise.bridge.state;
 
 type
     TUnresolvedState<T> = class (TBaseState<T>)
@@ -11,17 +12,18 @@ type
         fSoTask: ITask;
         fPromise: IPromise<T>;
         fCanceled: boolean;
+        fStateBridge: TStateChangeBridge<T>;
 
       protected
         procedure setNextState(); override;
 
       public
-        constructor Create(pPromise: IPromise<T>; pFuture: IFuture<T>);
+        constructor Create(pPromise: IPromise<T>; pFuture: IFuture<T>; pChangeBridge: TStateChangeBridge<T>);
 
         function getErrorStr(): string; override;
         function getStateStr(): string; override;
         function getValue(): T; override;
-        procedure next(pProc: TAccept<T>); override;
+        procedure then_(pProc: TAccept<T>); override;
         procedure caught(pProc: TReject); override;
         procedure cancel(); override;
 
@@ -37,12 +39,7 @@ uses
 
 procedure TUnresolvedState<T>.cancel;
 begin
-//    if (Assigned(fSoTask)) then
-//    begin
-//        fSoTask.Cancel();
-//    end;
     fCanceled := true;
-
     fFuture.Cancel();
 end;
 
@@ -51,10 +48,11 @@ begin
     self.fRejectProc := pProc;
 end;
 
-constructor TUnresolvedState<T>.Create(pPromise: IPromise<T>; pFuture: IFuture<T>);
+constructor TUnresolvedState<T>.Create(pPromise: IPromise<T>; pFuture: IFuture<T>; pChangeBridge: TStateChangeBridge<T>);
 begin
     fPromise := pPromise;
     fFuture := pFuture;
+    fStateBridge := pChangeBridge;
 end;
 
 function TUnresolvedState<T>.getErrorStr: string;
@@ -77,20 +75,22 @@ begin
     begin
         if (fCanceled) then
         begin
-            fPromise.changeState(TCanceledState<T>.Create());
+            fStateBridge.change(TCanceledState<T>.Create());
         end
         else
         begin
-            fPromise.changeState(TRejectedState<T>.Create(fErrorValue, fRejectProc));
+            fStateBridge.change(TRejectedState<T>.Create(fErrorValue, fRejectProc));
         end;
     end
     else
     begin
-        fPromise.changeState(TResolvedState<T>.Create(fFuture.Value, fAcceptProc));
+        fStateBridge.change(TResolvedState<T>.Create(fFuture.Value, fAcceptProc));
     end;
+
+    fStateBridge.Free();
 end;
 
-procedure TUnresolvedState<T>.next(pProc: TAccept<T>);
+procedure TUnresolvedState<T>.then_(pProc: TAccept<T>);
 begin
     if (Assigned(fSoTask)) then
     begin

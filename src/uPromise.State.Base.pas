@@ -21,7 +21,7 @@ type
       function getErrorStr(): string; virtual; abstract;
       function getStateStr(): string; virtual; abstract;
       function getValue(): T; virtual; abstract;
-      procedure next(pProc: TAccept<T>); virtual; abstract;
+      procedure then_(pProc: TAccept<T>); virtual; abstract;
       procedure caught(pProc: TReject); virtual; abstract;
       procedure cancel(); virtual; abstract;
   end;

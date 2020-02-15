@@ -17,7 +17,7 @@ type
       function getStateStr(): string; override;
       function getValue(): T; override;
       procedure setNextState(); override;
-      procedure next(pProc: TAccept<T>); override;
+      procedure then_(pProc: TAccept<T>); override;
       procedure caught(pProc: TReject); override;
       procedure cancel(); override;
 
@@ -61,7 +61,7 @@ procedure TRejectedState<T>.setNextState;
 begin
 end;
 
-procedure TRejectedState<T>.next(pProc: TAccept<T>);
+procedure TRejectedState<T>.then_(pProc: TAccept<T>);
 begin
 end;
 

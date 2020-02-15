@@ -11,7 +11,7 @@ type
       function getErrorStr(): string; override;
       function getStateStr(): string; override;
       function getValue(): T; override;
-      procedure next(pProc: TAccept<T>); override;
+      procedure then_(pProc: TAccept<T>); override;
       procedure caught(pProc: TReject); override;
       procedure cancel(); override;
   end;
@@ -41,7 +41,7 @@ function TCanceledState<T>.getValue: T;
 begin
 end;
 
-procedure TCanceledState<T>.next(pProc: TAccept<T>);
+procedure TCanceledState<T>.then_(pProc: TAccept<T>);
 begin
 end;
 

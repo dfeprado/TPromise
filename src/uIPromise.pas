@@ -10,12 +10,11 @@ type
     function getState(): string;
     function getErrorStr(): string;
     function getValue(): T;
-    function next(pProc: TAccept<T>): IPromise<T>;
     function isResolved(): boolean;
     function isRejected(): boolean;
     function isUnresolved(): boolean;
+    function then_(pProc: TAccept<T>): IPromise<T>;
     procedure caught(pProc: TReject);
-    procedure changeState(pState: IPromiseState<T>);
     procedure cancel();
   end;
 

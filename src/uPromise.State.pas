@@ -10,7 +10,7 @@ type
       function getErrorStr(): string;
       function getStateStr(): string;
       function getValue(): T;
-      procedure next(pProc: TAccept<T>);
+      procedure then_(pProc: TAccept<T>);
       procedure caught(pProc: TReject);
       procedure cancel();
     end;

@@ -78,7 +78,7 @@ begin
     );
 
     fPromise := TPromise<string>.Create(xFuture);
-    fPromise.next(
+    fPromise.then_(
       procedure (const R: string)
       begin
           lblLabel.Caption := R;
@@ -128,7 +128,7 @@ begin
     );
 
     fPromise := TPromise<string>.Create(xFuture);
-    fPromise.next(
+    fPromise.then_(
       procedure (const R: string)
       begin
           lblLabel.Caption := R;

@@ -42,6 +42,7 @@ contains
   uPromise.State.Rejected in 'src\uPromise.State.Rejected.pas',
   uPromise.State.Resolved in 'src\uPromise.State.Resolved.pas',
   uPromise.State.Unresolved in 'src\uPromise.State.Unresolved.pas',
-  uPromise.Types in 'src\uPromise.Types.pas';
+  uPromise.Types in 'src\uPromise.Types.pas',
+  uPromise.bridge.state in 'src\uPromise.bridge.state.pas';
 
 end.

@@ -19,7 +19,7 @@ type
       function getErrorStr(): string; override;
       function getStateStr(): string; override;
       function getValue(): T; override;
-      procedure next(pProc: TAccept<T>); override;
+      procedure then_(pProc: TAccept<T>); override;
       procedure caught(pProc: TReject); override;
       procedure cancel(); override;
   end;
@@ -60,7 +60,7 @@ procedure TResolvedState<T>.setNextState;
 begin
 end;
 
-procedure TResolvedState<T>.next(pProc: TAccept<T>);
+procedure TResolvedState<T>.then_(pProc: TAccept<T>);
 begin
     self.fAcceptProc := pProc;
 

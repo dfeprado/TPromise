@@ -9,6 +9,9 @@ type
     private
       fSelfState: IPromiseState<T>;
 
+    protected
+      procedure changeState(pState: IPromiseState<T>);
+
     public
       constructor Create(pFuture: IFuture<T>);
       destructor Destroy; override;
@@ -17,12 +20,12 @@ type
       function getErrorStr(): string;
       function getState(): string;
       function getValue(): T;
-      function next(pProc: TAccept<T>): IPromise<T>;
       function isResolved(): boolean;
       function isRejected(): boolean;
       function isUnresolved(): boolean;
+      function isCanceled(): boolean;
+      function then_(pProc: TAccept<T>): IPromise<T>;
       procedure caught(pProc: TReject);
-      procedure changeState(pState: IPromiseState<T>);
       procedure cancel();
 
   end;
@@ -30,7 +33,7 @@ type
 implementation
 
 uses
-  System.Classes, uPromise.State.Unresolved;
+  System.Classes, uPromise.State.Unresolved, uPromise.bridge.state;
 
 { TPromise<T> }
 
@@ -51,11 +54,12 @@ end;
 
 constructor TPromise<T>.Create(pFuture: IFuture<T>);
 begin
-    fSelfState := TUnresolvedState<T>.Create(self, pFuture);
+    fSelfState := TUnresolvedState<T>.Create(self, pFuture, TStateChangeBridge<T>.Create(self.changeState));
 end;
 
 destructor TPromise<T>.Destroy;
 begin
+    self.cancel();
     fSelfState := nil;
     inherited;
 end;
@@ -75,6 +79,11 @@ begin
     result := fSelfState.getValue();
 end;
 
+function TPromise<T>.isCanceled: boolean;
+begin
+    result := fSelfState.getStateStr() = 'canceled';
+end;
+
 function TPromise<T>.isRejected: boolean;
 begin
     result := fSelfState.getStateStr() = 'rejected';
@@ -90,9 +99,9 @@ begin
     result := fSelfState.getStateStr() = 'unresolved';
 end;
 
-function TPromise<T>.next(pProc: TAccept<T>): IPromise<T>;
+function TPromise<T>.then_(pProc: TAccept<T>): IPromise<T>;
 begin
-    fSelfState.next(pProc);
+    fSelfState.then_(pProc);
     result := self;
 end;
 
