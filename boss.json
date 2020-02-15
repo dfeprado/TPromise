@@ -1,0 +1,9 @@
+{
+	"name": "Promise",
+	"description": "A implementação da Promise do JS para o Delphi",
+	"version": "1.1.0",
+	"homepage": "https://github.com/dfeprado/TPromise",
+	"mainsrc": "./src",
+	"projects": [],
+	"dependencies": {}
+}
