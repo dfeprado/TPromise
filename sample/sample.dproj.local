@@ -16,6 +16,8 @@
     <Transaction>2020/02/15 12:59:47.317,=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
     <Transaction>2020/02/15 13:00:04.780,X:\GRV\Pacotes\Promise\src\uPromise.bridge.state.pas=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
     <Transaction>2020/02/15 13:03:47.903,X:\GRV\Pacotes\Promise\src\uPromise.bridge.state.pas=</Transaction>
+    <Transaction>2020/02/15 13:14:12.773,=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
+    <Transaction>2020/02/15 13:14:25.995,X:\GRV\Pacotes\Promise\boss.pas=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5"/>
