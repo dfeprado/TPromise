@@ -29,8 +29,8 @@ object Form2: TForm2
     Caption = 'lblLabel'
   end
   object lblPromiseState: TLabel
-    Left = 184
-    Top = 195
+    Left = 273
+    Top = 79
     Width = 73
     Height = 13
     Caption = 'lblPromiseState'
@@ -38,6 +38,20 @@ object Form2: TForm2
   object Label1: TLabel
     Left = 138
     Top = 64
+    Width = 31
+    Height = 13
+    Caption = 'Label1'
+  end
+  object lblAnonPromiseValue: TLabel
+    Left = 24
+    Top = 216
+    Width = 35
+    Height = 13
+    Caption = 'lblLabel'
+  end
+  object lblAnonPromiseTimer: TLabel
+    Left = 138
+    Top = 216
     Width = 31
     Height = 13
     Caption = 'Label1'
@@ -61,8 +75,8 @@ object Form2: TForm2
     OnClick = btnUpdateLabel2Click
   end
   object btnPromiseState: TButton
-    Left = 184
-    Top = 164
+    Left = 273
+    Top = 48
     Width = 107
     Height = 25
     Caption = 'Show promise state'
@@ -71,7 +85,7 @@ object Form2: TForm2
   end
   object btnPromiseRejection: TButton
     Left = 24
-    Top = 232
+    Top = 248
     Width = 145
     Height = 25
     Caption = 'Promise with reject'
@@ -79,7 +93,7 @@ object Form2: TForm2
     OnClick = btnPromiseRejectionClick
   end
   object btnCancelPromise: TButton
-    Left = 240
+    Left = 273
     Top = 17
     Width = 113
     Height = 25
@@ -87,10 +101,25 @@ object Form2: TForm2
     TabOrder = 4
     OnClick = btnCancelPromiseClick
   end
+  object btnUpdateWithAnonPromise: TButton
+    Left = 24
+    Top = 169
+    Width = 305
+    Height = 25
+    Caption = 'update label after 10 seconds (anonymous promise)'
+    TabOrder = 5
+    OnClick = btnUpdateWithAnonPromiseClick
+  end
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 192
-    Top = 48
+    Left = 232
+    Top = 8
+  end
+  object Timer2: TTimer
+    Enabled = False
+    OnTimer = Timer2Timer
+    Left = 208
+    Top = 200
   end
 end

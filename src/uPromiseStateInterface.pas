@@ -1,17 +1,17 @@
-unit uPromise.State;
+unit uPromiseStateInterface;
 
 interface
 
 uses
-  uPromise.Types;
+  uPromiseTypes;
 
 type
     IPromiseState<T> = interface ['{4F20B1E6-BF9A-4C6B-9F58-120D2F19A553}']
-      function getErrorStr(): string;
+      function getErrStr(): string;
       function getStateStr(): string;
       function getValue(): T;
-      procedure then_(pProc: TAccept<T>);
-      procedure caught(pProc: TReject);
+      procedure setAccept(accept: AnonAcceptProc<T>);
+      procedure setReject(reject: AnonRejectProc);
       procedure cancel();
     end;
 

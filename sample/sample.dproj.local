@@ -9,15 +9,16 @@
     <Transaction>2020/01/14 16:00:38.000.229,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
     <Transaction>2020/01/14 16:00:59.000.041,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
     <Transaction>2020/02/08 18:08:56.000.256,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2020/02/08 18:09:11.000.547,X:\GRV\Pacotes\Promise\sample\uMainForm.dfm=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
-    <Transaction>2020/02/08 18:09:11.000.547,X:\GRV\Pacotes\Promise\sample\uMainForm.pas=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2020/02/08 18:09:13.000.839,X:\GRV\Pacotes\Promise\sample\sample.dproj=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+    <Transaction>2020/02/08 18:09:11.000.547,C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.pas=X:\GRV\Pacotes\Promise\sample\uMainForm.pas</Transaction>
+    <Transaction>2020/02/08 18:09:11.000.547,C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit2.dfm=X:\GRV\Pacotes\Promise\sample\uMainForm.dfm</Transaction>
+    <Transaction>2020/02/08 18:09:13.000.839,C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Project2.dproj=X:\GRV\Pacotes\Promise\sample\sample.dproj</Transaction>
     <Transaction>2020/02/09 06:47:25.000.334,=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
-    <Transaction>2020/02/15 12:59:47.317,=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
-    <Transaction>2020/02/15 13:00:04.780,X:\GRV\Pacotes\Promise\src\uPromise.bridge.state.pas=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
-    <Transaction>2020/02/15 13:03:47.903,X:\GRV\Pacotes\Promise\src\uPromise.bridge.state.pas=</Transaction>
-    <Transaction>2020/02/15 13:14:12.773,=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
-    <Transaction>2020/02/15 13:14:25.995,X:\GRV\Pacotes\Promise\boss.pas=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
+    <Transaction>2020/02/15 12:59:47.000.317,=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
+    <Transaction>2020/02/15 13:00:04.000.780,X:\GRV\Pacotes\Promise\sample\Unit1.pas=X:\GRV\Pacotes\Promise\src\uPromise.bridge.state.pas</Transaction>
+    <Transaction>2020/02/15 13:03:47.000.903,X:\GRV\Pacotes\Promise\src\uPromise.bridge.state.pas=</Transaction>
+    <Transaction>2020/02/15 13:14:12.000.773,=X:\GRV\Pacotes\Promise\sample\Unit1.pas</Transaction>
+    <Transaction>2020/02/15 13:14:25.000.995,X:\GRV\Pacotes\Promise\sample\Unit1.pas=X:\GRV\Pacotes\Promise\boss.pas</Transaction>
+    <Transaction>2020/05/15 11:10:07.000.457,X:\GRV\biblioteca\TPromise\boss.json=</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5"/>

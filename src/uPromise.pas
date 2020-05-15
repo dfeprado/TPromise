@@ -2,29 +2,27 @@ unit uPromise;
 
 interface
 
-uses uIPromise, uPromise.Types, System.Threading, uPromise.State;
+uses uPromiseInterface, uPromiseTypes, System.Threading, uPromiseStateInterface;
 
 type
   TPromise<T> = class (TInterfacedObject, IPromise<T>)
     private
       fSelfState: IPromiseState<T>;
-
-      procedure changeState(pState: IPromiseState<T>);
-
+      autoRef: IPromise<T>;
+      procedure changeState(newState: IPromiseState<T>);
+      procedure undoAutoRef();
     public
-      constructor Create(pFuture: IFuture<T>);
+      constructor Create(action: PromiseProc<T>);
       destructor Destroy; override;
-
       //-- from IPromise<T>
-      function getErrorStr(): string;
-      function getState(): string;
+      function getErrStr(): string;
       function getValue(): T;
-      function isResolved(): boolean;
+      function isFulfilled(): boolean;
       function isRejected(): boolean;
-      function isUnresolved(): boolean;
+      function isPending(): boolean;
       function isCanceled(): boolean;
-      function then_(pProc: TAccept<T>): IPromise<T>;
-      procedure caught(pProc: TReject);
+      function then_(accept: AnonAcceptProc<T>): IPromise<T>;
+      procedure caught(reject: AnonRejectProc);
       procedure cancel();
 
   end;
@@ -32,76 +30,76 @@ type
 implementation
 
 uses
-  System.Classes, uPromise.State.Unresolved, uPromise.bridge.state;
+  System.Classes, uPromisePending;
 
 { TPromise<T> }
 
 procedure TPromise<T>.cancel;
 begin
-    fSelfState.cancel();
+  fSelfState.cancel();
 end;
 
-procedure TPromise<T>.caught(pProc: TReject);
+procedure TPromise<T>.caught(reject: AnonRejectProc);
 begin
-    fSelfState.caught(pProc);
+  fSelfState.setReject(reject);
 end;
 
-procedure TPromise<T>.changeState(pState: IPromiseState<T>);
+procedure TPromise<T>.changeState(newState: IPromiseState<T>);
 begin
-    fSelfState := pState;
+  fSelfState := newState;
 end;
 
-constructor TPromise<T>.Create(pFuture: IFuture<T>);
+constructor TPromise<T>.Create(action: PromiseProc<T>);
 begin
-    fSelfState := TUnresolvedState<T>.Create(self, pFuture, TStateChangeBridge<T>.Create(self.changeState));
+  fSelfState := TPromisePending<T>.Create(action, self.changeState);
+  autoRef := self;
 end;
 
 destructor TPromise<T>.Destroy;
 begin
-    self.cancel();
-    fSelfState := nil;
-    inherited;
+  self.cancel();
+  inherited;
 end;
 
-function TPromise<T>.getErrorStr: string;
+function TPromise<T>.getErrStr: string;
 begin
-    result := fSelfState.getErrorStr();
-end;
-
-function TPromise<T>.getState: string;
-begin
-    result := fSelfState.getStateStr();
+  result := fSelfState.getErrStr();
 end;
 
 function TPromise<T>.getValue: T;
 begin
-    result := fSelfState.getValue();
+  result := fSelfState.getValue();
 end;
 
 function TPromise<T>.isCanceled: boolean;
 begin
-    result := fSelfState.getStateStr() = 'canceled';
+  result := fSelfState.getStateStr() = 'canceled';
 end;
 
 function TPromise<T>.isRejected: boolean;
 begin
-    result := fSelfState.getStateStr() = 'rejected';
+  result := fSelfState.getStateStr() = 'rejected';
 end;
 
-function TPromise<T>.isResolved: boolean;
+function TPromise<T>.isFulfilled: boolean;
 begin
-    result := fSelfState.getStateStr() = 'resolved';
+  result := fSelfState.getStateStr() = 'resolved';
 end;
 
-function TPromise<T>.isUnresolved: boolean;
+function TPromise<T>.isPending: boolean;
 begin
-    result := fSelfState.getStateStr() = 'unresolved';
+  result := fSelfState.getStateStr() = 'unresolved';
 end;
 
-function TPromise<T>.then_(pProc: TAccept<T>): IPromise<T>;
+function TPromise<T>.then_(accept: AnonAcceptProc<T>): IPromise<T>;
 begin
-    fSelfState.then_(pProc);
-    result := self;
+  fSelfState.setAccept(accept);
+  result := self;
+end;
+
+procedure TPromise<T>.undoAutoRef;
+begin
+  self.autoRef := nil;
 end;
 
 end.

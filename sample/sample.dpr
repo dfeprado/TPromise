@@ -2,8 +2,7 @@ program sample;
 
 uses
   Vcl.Forms,
-  uMainForm in 'uMainForm.pas' {Form2},
-  boss in '..\boss.json';
+  uMainForm in 'uMainForm.pas' {Form2};
 
 {$R *.res}
 

@@ -2,6 +2,6 @@
 <BorlandProject>
 	<Transactions/>
 	<Default.Personality>
-		<Projects ActiveProject="X:\GRV\Pacotes\Promise\sample\sample.dproj"/>
+		<Projects ActiveProject="X:\GRV\biblioteca\TPromise\sample\sample.dproj"/>
 	</Default.Personality>
 </BorlandProject>

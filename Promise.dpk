@@ -33,16 +33,13 @@ requires
   rtl;
 
 contains
-  uIPromise in 'src\uIPromise.pas',
-  uIPromiseStateChanger in 'src\uIPromiseStateChanger.pas',
+  uPromiseInterface in 'src\uPromiseInterface.pas',
   uPromise in 'src\uPromise.pas',
-  uPromise.State.Base in 'src\uPromise.State.Base.pas',
-  uPromise.State.Canceled in 'src\uPromise.State.Canceled.pas',
-  uPromise.State in 'src\uPromise.State.pas',
-  uPromise.State.Rejected in 'src\uPromise.State.Rejected.pas',
-  uPromise.State.Resolved in 'src\uPromise.State.Resolved.pas',
-  uPromise.State.Unresolved in 'src\uPromise.State.Unresolved.pas',
-  uPromise.Types in 'src\uPromise.Types.pas',
-  uPromise.bridge.state in 'src\uPromise.bridge.state.pas';
+  uPromiseCanceled in 'src\uPromiseCanceled.pas',
+  uPromiseStateInterface in 'src\uPromiseStateInterface.pas',
+  uPromiseRejected in 'src\uPromiseRejected.pas',
+  uPromiseFulfilled in 'src\uPromiseFulfilled.pas',
+  uPromisePending in 'src\uPromisePending.pas',
+  uPromiseTypes in 'src\uPromiseTypes.pas';
 
 end.
