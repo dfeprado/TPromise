@@ -3,15 +3,16 @@ unit uPromiseFulfilled;
 interface
 
 uses
-  uPromiseTypes, uPromiseStateInterface;
+  System.SysUtils, uPromiseTypes, uPromiseStateInterface;
 
 type
   TPromiseFulfilled<T> = class (TInterfacedObject, IPromiseState<T>)
     private
       fulfilledValue: T;
       acceptProc: AnonAcceptProc<T>;
+      undoAutoRef: TProc;
     public
-      constructor Create(value: T; acceptProc: AnonAcceptProc<T>);
+      constructor Create(value: T; acceptProc: AnonAcceptProc<T>; undoAutoRef: TProc);
       function getErrStr(): string;
       function getStateStr(): string;
       function getValue(): T;
@@ -35,9 +36,10 @@ procedure TPromiseFulfilled<T>.setReject(pProc: AnonRejectProc);
 begin
 end;
 
-constructor TPromiseFulfilled<T>.Create(value: T; acceptProc: AnonAcceptProc<T>);
+constructor TPromiseFulfilled<T>.Create(value: T; acceptProc: AnonAcceptProc<T>; undoAutoRef: TProc);
 begin
   fulfilledValue := value;
+  self.undoAutoRef := undoAutoRef;
   self.setAccept(acceptProc);
 end;
 
@@ -67,6 +69,7 @@ begin
         procedure
         begin
           self.acceptProc(self.fulfilledValue);
+          self.undoAutoRef();
         end
       );
     end

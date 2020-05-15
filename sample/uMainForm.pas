@@ -152,28 +152,24 @@ begin
 end;
 
 procedure TForm2.btnPromiseRejectionClick(Sender: TObject);
-//var
-//  xFuture: IFuture<string>;
 begin
-//    xFuture := TTask.Future<string>(
-//      function: string
-//      begin
-//          raise Exception.Create('TESTE DE EXCEPTION!');
-//      end
-//    );
-//
-//    fPromise := TPromise<string>.Create(xFuture);
-//    fPromise.then_(
-//      procedure (const R: string)
-//      begin
-//          lblLabel.Caption := R;
-//      end
-//    ).caught(
-//      procedure
-//      begin
-//          ShowMessage(fPromise.getErrorStr());
-//      end
-//    );
+  TPromise<string>.Create(
+    procedure (a: AcceptProc<string>; r: RejectProc)
+    begin
+      sleep(1000);
+      r('Just rejecting!');
+    end
+  ).then_(
+    procedure (R: string)
+    begin
+      lblLabel.Caption := R;
+    end
+  ).caught(
+    procedure (e: string)
+    begin
+      ShowMessage(e);
+    end
+  );
 end;
 
 procedure TForm2.btnPromiseStateClick(Sender: TObject);

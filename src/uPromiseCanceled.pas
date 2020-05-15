@@ -3,11 +3,12 @@ unit uPromiseCanceled;
 interface
 
 uses
-  uPromiseStateInterface, uPromiseTypes;
+  System.SysUtils, uPromiseStateInterface, uPromiseTypes;
 
 type
   TPromiseCanceled<T> = class (TInterfacedObject, IPromiseState<T>)
     public
+      constructor Create(undoAutoRef: TProc);
       function getErrStr(): string;
       function getStateStr(): string;
       function getValue(): T;
@@ -26,6 +27,11 @@ end;
 
 procedure TPromiseCanceled<T>.setReject(reject: AnonRejectProc);
 begin
+end;
+
+constructor TPromiseCanceled<T>.Create(undoAutoRef: TProc);
+begin
+  undoAutoRef();
 end;
 
 function TPromiseCanceled<T>.getErrStr: string;

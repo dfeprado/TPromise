@@ -2,7 +2,8 @@ unit uPromisePending;
 
 interface
 
-uses uPromiseTypes, uPromiseStateInterface, System.Threading;
+uses
+  System.SysUtils, uPromiseTypes, uPromiseStateInterface, System.Threading;
 
 type
     TPromisePending<T> = class (TInterfacedObject, IPromiseState<T>)
@@ -13,11 +14,12 @@ type
         asyncTask: ITask;
         onAccept: AnonAcceptProc<T>;
         onReject: AnonRejectProc;
+        undoAutoRef: TProc;
       protected
         procedure doAccept(value: T);
         procedure doReject(expl: string = '');
       public
-        constructor Create(action: PromiseProc<T>; stateChanger: TStateChangerProc<T>);
+        constructor Create(action: PromiseProc<T>; stateChanger: TStateChangerProc<T>; undoAutoRef: TProc);
         //-- From IPromiseState
         function getErrStr(): string;
         function getStateStr(): string;
@@ -38,12 +40,13 @@ uses
 procedure TPromisePending<T>.cancel;
 begin
   self.asyncTask.Cancel();
-  self.stateChanger(TPromiseCanceled<T>.Create());
+  self.stateChanger(TPromiseCanceled<T>.Create(self.undoAutoRef));
 end;
 
-constructor TPromisePending<T>.Create(action: PromiseProc<T>; stateChanger: TStateChangerProc<T>);
+constructor TPromisePending<T>.Create(action: PromiseProc<T>; stateChanger: TStateChangerProc<T>; undoAutoRef: TProc);
 begin
   self.stateChanger := stateChanger;
+  self.undoAutoRef := undoAutoRef;
   asyncTask := TTask.Run(
     procedure
     begin
@@ -54,12 +57,12 @@ end;
 
 procedure TPromisePending<T>.doAccept(value: T);
 begin
-  self.stateChanger(TPromiseFulfilled<T>.Create(value, self.onAccept));
+  self.stateChanger(TPromiseFulfilled<T>.Create(value, self.onAccept, self.undoAutoRef));
 end;
 
 procedure TPromisePending<T>.doReject(expl: string);
 begin
-  self.stateChanger(TPromiseRejected<T>.Create(expl, self.onReject));
+  self.stateChanger(TPromiseRejected<T>.Create(expl, self.onReject, self.undoAutoRef));
 end;
 
 function TPromisePending<T>.getErrStr: string;

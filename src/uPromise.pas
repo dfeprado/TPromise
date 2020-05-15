@@ -24,7 +24,6 @@ type
       function then_(accept: AnonAcceptProc<T>): IPromise<T>;
       procedure caught(reject: AnonRejectProc);
       procedure cancel();
-
   end;
 
 implementation
@@ -51,7 +50,7 @@ end;
 
 constructor TPromise<T>.Create(action: PromiseProc<T>);
 begin
-  fSelfState := TPromisePending<T>.Create(action, self.changeState);
+  fSelfState := TPromisePending<T>.Create(action, self.changeState, self.undoAutoRef);
   autoRef := self;
 end;
 

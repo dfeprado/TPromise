@@ -3,15 +3,16 @@ unit uPromiseRejected;
 interface
 
 uses
-  uPromiseStateInterface, uPromiseTypes;
+  System.SysUtils, uPromiseStateInterface, uPromiseTypes;
 
 type
   TPromiseRejected<T> = class (TInterfacedObject, IPromiseState<T>)
     private
       error: string;
       onReject: AnonRejectProc;
+      undoAutoRef: TProc;
     protected
-      constructor Create(const error: string; onReject: AnonRejectProc);
+      constructor Create(const error: string; onReject: AnonRejectProc; undoAutoRef: TProc);
       function getErrStr(): string;
       function getStateStr(): string;
       function getValue(): T;
@@ -48,6 +49,7 @@ begin
         procedure
         begin
           self.onReject(self.error);
+          self.undoAutoRef();
         end
       );
     end
@@ -55,10 +57,11 @@ begin
   end;
 end;
 
-constructor TPromiseRejected<T>.Create(const error: string; onReject: AnonRejectProc);
+constructor TPromiseRejected<T>.Create(const error: string; onReject: AnonRejectProc; undoAutoRef: TProc);
 begin
   self.error := error;
-  self.onReject := onReject;
+  self.undoAutoRef := undoAutoRef;
+  self.setReject(onReject);
 end;
 
 function TPromiseRejected<T>.getErrStr: string;
