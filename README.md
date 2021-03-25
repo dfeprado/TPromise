@@ -1,7 +1,12 @@
 # TPromise
 ## O conceito _promise_ do ES no DELPHI
 
-Eu ainda estou escrevendo esse documento. Agradeço sua paciência :)
+## Nova versão! 
+### Agora mais simples!
+Apenas duas units
+
+ - **promise.pas**: define os tipos do TPromise - interfaces e procedures
+ - **promise.concrete.pas**: define a classe TPromise
 
 ## Era uma vez... eventos pra lá e pra cá (arg!)
 Imagine que temos uma função que levará muito tempo para ser executada:
@@ -121,24 +126,34 @@ end
 ##### Com promise
 ```
 function facaAlgo: string;
-var
-	xPromise: IPromise<string>;
 begin
-	xFuture = TTask.Future<string>(
-		function: string
+	TPromise<String, Exception>.New(
+		procedure (Resolve: TPromiseResolveProcedure<String>, Reject: TPromiseRejectProcedure<Exception>) 
 		begin
-			sleep(10000); // imagine um processo longo aqui
-			result := 'Deu certo!';
-		end
-	);
+			try
+				sleep(10000); // imagine um processo longo aqui
+				Resolve('Deu certo!');
+			except
+				// Não temos interesse nesse tipo de excessão
+				if ExceptObjet is EOperationCancelled then
+					Exit();
 
-	xPromise := TPromise<string>.Create(xFuture);
-	xPromise.next(
-		procedure (const pResultado: string)
-		begin
-			self.OnFacaAlgoFinished(xResultado); // invocando o evento!
+				// Para os demais...
+				Reject(AcquireExceptionObject() as Exception)
+			end;
 		end
-	);
+	).&Then(
+		procedure(const Value: String) 
+		begin
+			Self.OnFacaAlgoFinished(Value);
+		end
+	).Catch(
+		procedure(const Error: Exception)
+		begin
+			ShowMessage(Error.Message);
+			Error.Free();
+		end
+	)
 end
 ```
 Se isso não é bonito, eu não sei o que é!
@@ -169,7 +184,7 @@ queroFazerAlgoComARespostaAqui() // Isso não é possível, pois vou
 ``` 
 ##### Com promise
 ```
-function pesquisar(const pProduto: string): IPromise<string>;
+function pesquisar(const pProduto: string): IPromise<String, String>;
 begin
 	// esse camarada aqui retorna uma IPromise<string> ;)
 	result := ObjComunicacao.send('/pesquisa/por/produto/', pProduto);
@@ -179,7 +194,7 @@ end;
 
 // em um lugar qualquer do código:
 pesquisar('maçãs')
-	.next(
+	.&Then(
 		procedure (const pResposta: string)
 		begin
 			facaAlgoComAResposta(pResposta);

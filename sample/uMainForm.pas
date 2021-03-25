@@ -4,35 +4,23 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, uPromiseInterface;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, promise,
+  System.Generics.Collections;
 
 type
   TForm2 = class(TForm)
     btnUpdateLabel: TButton;
     lblLabel: TLabel;
-    btnUpdateLabel2: TButton;
-    lblLabel2: TLabel;
-    btnPromiseState: TButton;
-    lblPromiseState: TLabel;
-    btnPromiseRejection: TButton;
-    btnCancelPromise: TButton;
     Label1: TLabel;
     Timer1: TTimer;
-    btnUpdateWithAnonPromise: TButton;
-    lblAnonPromiseValue: TLabel;
-    lblAnonPromiseTimer: TLabel;
-    Timer2: TTimer;
+    btnCatchPromise: TButton;
     procedure btnUpdateLabelClick(Sender: TObject);
-    procedure btnPromiseStateClick(Sender: TObject);
-    procedure btnUpdateLabel2Click(Sender: TObject);
-    procedure btnPromiseRejectionClick(Sender: TObject);
-    procedure btnCancelPromiseClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Timer1Timer(Sender: TObject);
-    procedure Timer2Timer(Sender: TObject);
-    procedure btnUpdateWithAnonPromiseClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure btnCatchPromiseClick(Sender: TObject);
   private
-    fPromise: IPromise<string>;
+    Promises: TList<IPromiseBasic>;
     fCounter,
     fCounter2: shortint;
   public
@@ -44,85 +32,116 @@ var
 
 implementation
 
-uses
-  uPromise, uPromiseTypes, System.Threading;
-
 {$R *.dfm}
 
-procedure TForm2.btnUpdateLabel2Click(Sender: TObject);
+uses promise.concret, System.Threading;
+
+procedure TForm2.btnCatchPromiseClick(Sender: TObject);
 begin
-    if (Assigned(fPromise)) then
-    begin
-        lblLabel2.Caption := fPromise.getValue();
-    end
-    else
-    begin
-        lblLabel2.Caption := 'The promise does not exists yet.';
-    end;
+  // Promisses.Add is just used to automatic cancel promises
+  // on form destruction
+  Promises.Add(
+    TPromise<String, Exception>.New(
+      procedure (Resolve: TPromiseResolveProcedure<String>; Reject: TPromiseRejectProcedure<Exception>)
+      var
+        counter: Byte;
+      begin
+        // This task counts up to 20, within 2 seconds.
+        // Then, its raise an exception to simulate the Catch().
+        counter := 0;
+        try
+          while True do
+          begin
+          // !!!! IMPORTANT !!!
+          // Always check for cancelation! If not, your program may freeze in unexpected moments
+            TTask.CurrentTask.CheckCanceled();
+            sleep(100);
+            if counter = 20 then
+              raise EArgumentException.Create('This is an exception raised from counter');
+            Inc(counter);
+          end;
+          Resolve('OK');
+        except
+          // We are not interested in EOperationCancelled
+          if ExceptObject() is EOperationCancelled then
+            Exit();
+
+          // Reject the promise with the Exception object
+          Reject(AcquireExceptionObject() as Exception);
+        end;
+      end
+    )
+    .&Then(
+      procedure (const Value: String)
+      begin
+        ShowMessage(Value);
+      end
+    )
+    .Catch(
+      procedure (const ErrorValue: Exception)
+      begin
+        // This procedure will run within main thread.
+        // To change this, use TPromise.NewAsync() constructor.
+        ShowMessage(ErrorValue.Message);
+        ErrorValue.Free();
+      end
+    )
+  );
 end;
 
 procedure TForm2.btnUpdateLabelClick(Sender: TObject);
-var
-  xDate: TDateTime;
 begin
-  fPromise := TPromise<string>.Create(
-    procedure (accept: AcceptProc<string>; reject: RejectProc)
-    var
-      xSecCount: shortint;
-    begin
-      xSecCount := 0;
-      while (xSecCount < 10) do
+  // Promisses.Add is just used to automatic cancel promises
+  // on form destruction
+  Promises.Add(
+    // Create a new promise parametirized for <String, String>
+    TPromise<String, String>.New(
+      procedure (Resolve: TPromiseResolveProcedure<String>; Reject: TPromiseRejectProcedure<String>)
+      var
+        elapsedSeconds: Byte;
       begin
-        if (TTask.CurrentTask.Status = TTaskStatus.Canceled) then exit();
-        sleep(1000);
-        inc(xSecCount);
-      end;
-      accept('Hello world!');
-    end
-  );
-  fPromise.then_(
-    procedure (R: string)
-    begin
-      lblLabel.Caption := R;
-    end
+        // This work task counts 10 seconds before resolve
+        elapsedSeconds := 0;
+        while elapsedSeconds < 10 do
+        begin
+          // !!!! IMPORTANT !!!
+          // Always check for cancelation! If not, your program may freeze in unexpected moments
+          TTask.CurrentTask.CheckCanceled();
+          Sleep(1000);
+          inc(elapsedSeconds);
+        end;
+        // Resolve the string "Hello, World!"
+        Resolve('Hello, World!');
+      end
+    ).&Then(
+      procedure (const Value: String)
+      begin
+        // Every &Then() procedure executes within main thread.
+        // To change this, use TPromise.NewAsync() constructor.
+        lblLabel.Caption := Value;
+      end
+    )
   );
 
+  // Just start a counter to show the UI updating while task is counting.
   fCounter := 10;
   Timer1.Enabled := True;
 end;
 
-procedure TForm2.btnUpdateWithAnonPromiseClick(Sender: TObject);
+procedure TForm2.FormCreate(Sender: TObject);
 begin
-  fCounter2 := 10;
-  TPromise<string>.Create(
-    procedure (accept: AcceptProc<string>; reject: RejectProc)
-    var
-      xSecCount: shortint;
-    begin
-      xSecCount := 0;
-      while (xSecCount < 10) do
-      begin
-        if (TTask.CurrentTask.Status = TTaskStatus.Canceled) then exit();
-        sleep(1000);
-        inc(xSecCount);
-      end;
-      accept('Hello world (with anonymous promise)!');
-    end
-  ).then_(
-    procedure (value: string)
-    begin
-      self.lblAnonPromiseValue.Caption := value;
-    end
-  );
-  Timer2.Enabled := true;
+  Promises := TList<IPromiseBasic>.Create();
 end;
 
-procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TForm2.FormDestroy(Sender: TObject);
+var
+  promise: IPromiseBasic;
 begin
-    if (Assigned(fPromise)) then
-    begin
-        fPromise.cancel();
-    end;
+  for promise in Promises do
+  begin
+    promise.Cancel();
+  end;
+  Promises.Free();
 end;
 
 procedure TForm2.Timer1Timer(Sender: TObject);
@@ -134,60 +153,6 @@ begin
     begin
         Timer1.Enabled := false;
     end;
-end;
-
-procedure TForm2.Timer2Timer(Sender: TObject);
-begin
-  dec(fCounter2);
-  lblAnonPromiseTimer.Caption := fCounter2.ToString();
-  if (fCounter2 = 0) then Timer2.Enabled := false;
-end;
-
-procedure TForm2.btnCancelPromiseClick(Sender: TObject);
-begin
-  if (Assigned(fPromise)) then
-  begin
-      fPromise.cancel();
-  end;
-end;
-
-procedure TForm2.btnPromiseRejectionClick(Sender: TObject);
-begin
-  TPromise<string>.Create(
-    procedure (a: AcceptProc<string>; r: RejectProc)
-    begin
-      sleep(1000);
-      r('Just rejecting!');
-    end
-  ).then_(
-    procedure (R: string)
-    begin
-      lblLabel.Caption := R;
-    end
-  ).caught(
-    procedure (e: string)
-    begin
-      ShowMessage(e);
-    end
-  );
-end;
-
-procedure TForm2.btnPromiseStateClick(Sender: TObject);
-var
-  state: String;
-begin
-    if (Assigned(fPromise)) then
-    begin
-        if (fPromise.isCanceled()) then state := 'Canceled'
-        else if (fPromise.isFulfilled()) then state := 'Fulfilled'
-        else if (fPromise.isPending()) then state := 'Pending'
-        else state := 'Rejected';
-    end
-    else
-    begin
-        state := 'The promise does not exists yet.';
-    end;
-    lblPromiseState.Caption := state;
 end;
 
 end.

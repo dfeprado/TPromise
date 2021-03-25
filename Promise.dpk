@@ -33,13 +33,7 @@ requires
   rtl;
 
 contains
-  uPromiseInterface in 'src\uPromiseInterface.pas',
-  uPromise in 'src\uPromise.pas',
-  uPromiseCanceled in 'src\uPromiseCanceled.pas',
-  uPromiseStateInterface in 'src\uPromiseStateInterface.pas',
-  uPromiseRejected in 'src\uPromiseRejected.pas',
-  uPromiseFulfilled in 'src\uPromiseFulfilled.pas',
-  uPromisePending in 'src\uPromisePending.pas',
-  uPromiseTypes in 'src\uPromiseTypes.pas';
+  promise in 'src\promise.pas',
+  promise.concret in 'src\promise.concret.pas';
 
 end.
