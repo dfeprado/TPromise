@@ -1,0 +1,42 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 480
+  ClientWidth = 325
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object btnQueryApi: TButton
+    Align = Bottom
+    Position.Y = 384.000000000000000000
+    Size.Width = 325.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Text = 'Query API'
+    OnClick = btnQueryApiClick
+  end
+  object memoResult: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Align = Client
+    Size.Width = 325.000000000000000000
+    Size.Height = 384.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Viewport.Width = 321.000000000000000000
+    Viewport.Height = 380.000000000000000000
+  end
+  object btnFakeLongProcess: TButton
+    Align = Bottom
+    Position.Y = 432.000000000000000000
+    Size.Width = 325.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    Text = 'Fake a long process'
+    OnClick = btnFakeLongProcessClick
+  end
+end

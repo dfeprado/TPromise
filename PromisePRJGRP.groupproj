@@ -6,7 +6,7 @@
         <Projects Include="Promise.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="sample\sample.dproj">
+        <Projects Include="sample\uPromiseSample.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -26,23 +26,23 @@
     <Target Name="Promise:Make">
         <MSBuild Projects="Promise.dproj" Targets="Make"/>
     </Target>
-    <Target Name="sample">
-        <MSBuild Projects="sample\sample.dproj"/>
+    <Target Name="uPromiseSample">
+        <MSBuild Projects="sample\uPromiseSample.dproj"/>
     </Target>
-    <Target Name="sample:Clean">
-        <MSBuild Projects="sample\sample.dproj" Targets="Clean"/>
+    <Target Name="uPromiseSample:Clean">
+        <MSBuild Projects="sample\uPromiseSample.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="sample:Make">
-        <MSBuild Projects="sample\sample.dproj" Targets="Make"/>
+    <Target Name="uPromiseSample:Make">
+        <MSBuild Projects="sample\uPromiseSample.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="Promise;sample"/>
+        <CallTarget Targets="Promise;uPromiseSample"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Promise:Clean;sample:Clean"/>
+        <CallTarget Targets="Promise:Clean;uPromiseSample:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Promise:Make;sample:Make"/>
+        <CallTarget Targets="Promise:Make;uPromiseSample:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

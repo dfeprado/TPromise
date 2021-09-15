@@ -33,7 +33,7 @@ requires
   rtl;
 
 contains
-  promise in 'src\promise.pas',
-  promise.concret in 'src\promise.concret.pas';
+  uPromise in 'src\uPromise.pas',
+  uPromiseInterface in 'src\uPromiseInterface.pas';
 
 end.

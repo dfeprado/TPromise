@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2021/09/14 21:30:37.290,=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/09/14 21:31:38.851,C:\Users\daniel\Desktop\TPromise\TPromise\sample\uMainForm.pas=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/09/14 21:31:38.851,C:\Users\daniel\Desktop\TPromise\TPromise\sample\uMainForm.fmx=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>2021/09/14 21:31:42.330,C:\Users\daniel\Desktop\TPromise\TPromise\sample\uPromiseSample.dproj=C:\Users\daniel\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2021/09/14 21:31:53.081,=C:\Users\daniel\Desktop\TPromise\TPromise\src\uPromise.pas</Transaction>
+    <Transaction>2021/09/14 21:31:53.092,=C:\Users\daniel\Desktop\TPromise\TPromise\src\uPromiseInterface.pas</Transaction>
+    <Transaction>2021/09/14 21:35:42.419,=C:\Users\daniel\Desktop\TPromise\TPromise\sample\Unit1.pas</Transaction>
+    <Transaction>2021/09/14 21:35:44.928,C:\Users\daniel\Desktop\TPromise\TPromise\sample\uApi.pas=C:\Users\daniel\Desktop\TPromise\TPromise\sample\Unit1.pas</Transaction>
+  </Transactions>
+  <ActiveMobileDevice>   <NoProfile iOSSimulator="iPhone" Android="Androidx64" Android64="Android9x64"/>
+  </ActiveMobileDevice>
+</BorlandProject>
