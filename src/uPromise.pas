@@ -191,6 +191,7 @@ begin
   // Else, it keeps the callback reference for future use.
   // If the promise's already rejected, and a callback() was already called, or the promise's cancelled, then Catch() does nothing.
   Result := self;
+  syncer.Enter();
   try
     if Assigned(onRejCallback) and (state = psRejected) then
       Exit();
